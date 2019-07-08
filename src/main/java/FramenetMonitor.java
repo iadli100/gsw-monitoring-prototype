@@ -1,31 +1,27 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
- * uses ODBC connection to store statistics
+ * stub implementation. use db-read-only-connection to get stats.
+ * change to REST-API communication
  */
-public class OdbcConnector {
-
+public class FramenetMonitor {
 
     /*from  w  w  w.  j  a va2  s.  c  om*/
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; // ?
     // static final String DB_URL = "jdbc:mysql://localhost/EMP";
-    static final String DB_URL = "jdbc:mysql://localhost/gsw_monitoring";
+    static final String DB_URL = "jdbc:mysql://localhost/framenetdb";
     // static final String USER = "username";
-    static final String USER = "root";
+    static final String USER = "gsw_ro";
     // static final String PASS = "password";
-    static final String PASS = "hhu";
+    static final String PASS = "GeschweigeDenn";
 
     public static void main(String[] args) throws Exception {
         // write_networking(null, null, null);
 
-        show_networking();
+        show_fn_entry();
     }
 
-    public static void show_networking() {
+    public static void show_fn_entry() {
         Connection conn = null;
         Statement stmt = null;
         try {
@@ -33,18 +29,19 @@ public class OdbcConnector {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             stmt = conn.createStatement();
             // String sql = "SELECT id, first, last, age FROM Employees";
-            String sql = "SELECT * FROM networking";
+            String sql = "select distinct Entrystatus_Status from ENTRYSTATUS";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
 //                int id = rs.getInt("id");
 //                String first = rs.getString("first");
-                String timestamp = rs.getString("timestamp");
-                String kb_in = rs.getString("kb_in");
-                String kb_out = rs.getString("kb_out");
+                String entrystatus_status = rs.getString("Entrystatus_Status");
+                // String kb_in = rs.getString("kb_in");
+                // String kb_out = rs.getString("kb_out");
 
 //                System.out.print("ID: " + id);
 //                System.out.print(", First: " + first);
-                System.out.printf("%d:\t%s\t%s\t%s\n", rs.getRow(), timestamp, kb_in, kb_out);
+                // System.out.printf("%d:\t%s\t%s\t%s\n", rs.getRow(), timestamp, kb_in, kb_out);
+                System.out.println(entrystatus_status);
 
             }
             rs.close();

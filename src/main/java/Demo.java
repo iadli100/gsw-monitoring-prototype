@@ -11,6 +11,12 @@ public class Demo {
          */
         ArrayList<SystemMonitor.NetworkingResult> networkingResults = SystemMonitor.monitor_networking(1, 5);
 
+        /**
+         * implement tool-specific statistics, i.e. framenet-entries & status
+         */
+        System.out.println("listing framenet-data: ");
+        FramenetMonitor.show_fn_entry();
+        System.out.println();
 
         System.out.println("writing data to db");
         /**
