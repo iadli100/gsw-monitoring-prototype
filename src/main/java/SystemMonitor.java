@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 /**
  * reads system-stats. uses ifstat, vmstat, etc. commands
+ * TODO: implement disk usage / db transactions per day.
  */
 public class SystemMonitor {
 
@@ -20,8 +21,13 @@ public class SystemMonitor {
         }
     }
 
-
-
+    /**
+     * monitors traffic with 'seconds' delay 'repetitions' times.
+     * TODO: implement min, max, median traffic over a day.
+     * @param seconds
+     * @param repetitions
+     * @return
+     */
     public static ArrayList<NetworkingResult> monitor_networking(int seconds, int repetitions) {
         ArrayList<NetworkingResult> networking_results = new ArrayList<NetworkingResult>();
 
@@ -56,33 +62,4 @@ public class SystemMonitor {
         return networking_results;
     }
 
-    /*
-    public static String monitor_networking(int seconds, int repetitions) {
-        Runtime r = Runtime.getRuntime();
-        Process p = null;
-        try {
-            String command = String.format("ifstat -t -n %d %d", seconds, repetitions);
-            p = r.exec(command);
-            p.waitFor();
-
-
-            BufferedReader b = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line = "";
-            String result = "";
-
-            while ((line = b.readLine()) != null) {
-                result += line + "\n";
-            }
-
-            b.close();
-
-            return result;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-    */
 }

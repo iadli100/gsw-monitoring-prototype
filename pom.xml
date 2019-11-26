@@ -19,7 +19,7 @@
     <distributionManagement>
         <repository>
             <id>gsw-internal</id>
-            <!--importan! because of redirect, upload url is different from repo dependency url-->
+            <!--important! because of redirect, upload url is different from repo dependency url-->
             <url>${gsw-internal-repo.upstream}</url>
         </repository>
 
